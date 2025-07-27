@@ -1,6 +1,7 @@
 import React from 'react';
 import { Code, Award, Building2, Rocket, Users, Zap } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import Footer from './Footer';
 
 const HowIStarted = ({ onBack, onNavigate }) => {
   const milestones = [
@@ -245,6 +246,9 @@ const HowIStarted = ({ onBack, onNavigate }) => {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

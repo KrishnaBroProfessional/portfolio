@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Rocket, Star, Target, TrendingUp, Lightbulb, Globe, Users, Calendar, Code, Brain, Heart } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import Footer from './Footer';
 
 const Future = ({ onBack }) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState('shortTerm');
@@ -500,6 +501,9 @@ const Future = ({ onBack }) => {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

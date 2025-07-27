@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Clock, Activity, Code, BookOpen, Users, Target, TrendingUp, Calendar, Briefcase, Coffee } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import Footer from './Footer';
 
 const Now = ({ onBack }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -570,6 +571,9 @@ const Now = ({ onBack }) => {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

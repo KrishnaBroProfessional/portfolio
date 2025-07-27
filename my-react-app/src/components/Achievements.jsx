@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Trophy, Medal, Star, Award, Target, TrendingUp, Users, Calendar, Code } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import Footer from './Footer';
 
 const Achievements = ({ onBack }) => {
   const [selectedCategory, setSelectedCategory] = useState('professional');
@@ -874,6 +875,9 @@ const Achievements = ({ onBack }) => {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

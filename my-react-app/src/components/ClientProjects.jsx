@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Building2, Star, Calendar, ArrowRight, ExternalLink, Code, Database, Cloud } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import Footer from './Footer';
 
 const ClientProjects = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -903,6 +904,9 @@ const ClientProjects = ({ onBack }) => {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

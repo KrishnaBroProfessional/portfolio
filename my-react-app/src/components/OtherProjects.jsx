@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './Footer';
 
 const OtherProjects = ({ onBack }) => {
   const projects = [
@@ -344,6 +345,9 @@ const OtherProjects = ({ onBack }) => {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

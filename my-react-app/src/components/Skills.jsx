@@ -2,11 +2,30 @@ import React, { useRef, useState } from 'react';
 import { Brain, Code, Palette, Server, Database, Cloud, Cog, TestTube, Layers, Gamepad2 } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
 import { IconCloud } from './magicui/icon-cloud-new';
+import { OrbitingCircles } from './magicui/orbiting-circles';
 import NumberTicker from './ui/number-ticker';
+import Footer from './Footer';
 
 const Skills = ({ onBack }) => {
   const containerRef = useRef(null);
   const [isIconCloudEnabled, setIsIconCloudEnabled] = useState(true);
+
+  // Helper function to safely get border colors with fallbacks
+  const getBorderColors = (category) => {
+    return {
+      from: category.borderColors?.from || '#6366f1',
+      to: category.borderColors?.to || '#a855f7'
+    };
+  };
+
+  // Helper function to convert hex to rgba
+  const hexToRgba = (hex, alpha = 1) => {
+    if (!hex || hex.length !== 7) return `rgba(99, 102, 241, ${alpha})`;
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
 
   const skillCategories = [
     {
@@ -360,7 +379,7 @@ const Skills = ({ onBack }) => {
       </button>
 
       {/* Page content */}
-      <div ref={containerRef} className="flex flex-col items-center justify-start min-h-screen px-8 py-20">
+      <div ref={containerRef} className="flex flex-col items-center justify-start min-h-screen px-2 py-20">
         {/* Page title */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -372,7 +391,7 @@ const Skills = ({ onBack }) => {
         </div>
 
         {/* Skills Grid - 2 Column Satellite Layout or Icon Cloud */}
-        <div className="max-w-6xl w-full">
+        <div className="max-w-full w-full px-2">
           {isIconCloudEnabled ? (
             /* Icon Cloud View */
             <div className="flex flex-col items-center">
@@ -387,12 +406,26 @@ const Skills = ({ onBack }) => {
               </div>
             </div>
           ) : (
-            /* Original Satellite Layout */
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
-            {skillCategories.map((category, categoryIndex) => {
-              // Fixed sizing for consistent 2-column layout with pill shapes
-              const baseRadius = 190; // Increased radius for pill shapes
-              const containerSize = 480; // Increased container size for pill layout
+            /* Orbiting Circles Layout */
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">{skillCategories.map((category, categoryIndex) => {
+              const containerSize = 800;
+              
+              // Distribute skills across multiple orbit rings for better spacing
+              const distributeSkillsInRings = (skills) => {
+                const rings = [];
+                const skillsPerRing = [4, 6, 8, 10]; // Progressive ring sizes
+                let currentIndex = 0;
+                
+                for (let ringIndex = 0; ringIndex < 4 && currentIndex < skills.length; ringIndex++) {
+                  const skillsInThisRing = Math.min(skillsPerRing[ringIndex], skills.length - currentIndex);
+                  rings.push(skills.slice(currentIndex, currentIndex + skillsInThisRing));
+                  currentIndex += skillsInThisRing;
+                }
+                
+                return rings;
+              };
+              
+              const skillRings = distributeSkillsInRings(category.skills);
               
               return (
                 <div
@@ -403,7 +436,7 @@ const Skills = ({ onBack }) => {
                     animation: 'fadeInUp 0.6s ease-out forwards'
                   }}
                 >
-                  {/* Container for the satellite layout */}
+                  {/* Container for the orbiting layout */}
                   <div 
                     className="relative flex items-center justify-center"
                     style={{
@@ -414,25 +447,31 @@ const Skills = ({ onBack }) => {
                     }}
                   >
                     {/* Category Title Circle - Absolute Center */}
-                    <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center z-30">
                       <div
-                        className="relative flex items-center justify-center w-32 h-32 rounded-full shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105 z-20"
+                        className="relative flex items-center justify-center w-32 h-32 rounded-full shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105"
                         style={{
-                          background: `linear-gradient(135deg, ${category.borderColors.from}, ${category.borderColors.to})`,
-                          boxShadow: `0 0 40px ${category.borderColors.from}60`
+                          background: `linear-gradient(135deg, ${getBorderColors(category).from}, ${getBorderColors(category).to})`,
+                          boxShadow: `0 0 40px ${getBorderColors(category).from}60`
                         }}
                       >
                         {/* Border Beam for Header */}
                         <BorderBeam
                           duration={20 + categoryIndex * 3}
                           delay={categoryIndex * 0.5}
-                          colorFrom={category.borderColors.from}
-                          colorTo={category.borderColors.to}
+                          colorFrom={getBorderColors(category).from}
+                          colorTo={getBorderColors(category).to}
                           borderWidth={3}
                         />
                         
                         <div className="text-center px-2">
-                          <category.icon className="w-6 h-6 lg:w-8 lg:h-8 text-white mb-1 lg:mb-2 mx-auto" />
+                          {typeof category.icon === 'string' ? (
+                            <div className="w-6 h-6 lg:w-8 lg:h-8 text-white mb-1 lg:mb-2 mx-auto flex items-center justify-center text-lg lg:text-xl">
+                              {category.icon}
+                            </div>
+                          ) : (
+                            <category.icon className="w-6 h-6 lg:w-8 lg:h-8 text-white mb-1 lg:mb-2 mx-auto" />
+                          )}
                           <h3 className="text-white font-bold text-xs lg:text-sm leading-tight">
                             {category.title}
                           </h3>
@@ -440,118 +479,80 @@ const Skills = ({ onBack }) => {
                       </div>
                     </div>
 
-                    {/* Skills Circles arranged as satellites around center */}
-                    {category.skills.map((skill, skillIndex) => {
-                      // Perfect circle distribution around center
-                      const angle = (skillIndex * 360) / category.skills.length;
-                      const radian = (angle * Math.PI) / 180;
-                      
-                      // Variable radius for different spacing - creates more dynamic layout
-                      const radiusVariations = [180, 200, 170, 210, 190, 175, 195, 185, 205, 165, 215, 195, 185];
-                      const dynamicRadius = radiusVariations[skillIndex % radiusVariations.length];
-                      
-                      const x = Math.cos(radian) * dynamicRadius;
-                      const y = Math.sin(radian) * dynamicRadius;
+                    {/* Orbiting Skills Rings */}
+                    {skillRings.map((ringSkills, ringIndex) => {
+                      const baseRadii = [140, 190, 240, 290]; // Well-spaced orbit radii
+                      const ringRadius = baseRadii[ringIndex];
+                      const ringDuration = 30 + (ringIndex * 15); // Slower speeds: 30s, 45s, 60s, 75s
+                      const isReverse = ringIndex % 2 === 1; // Alternate direction for visual appeal
                       
                       return (
-                        <div key={skillIndex} className="absolute group">
-                          {/* Skill Satellite Pill positioned relative to container center */}
-                          <div
-                            className="flex items-center bg-white/20 backdrop-blur-sm border-2 border-white/40 rounded-full cursor-pointer transform transition-all duration-300 hover:scale-110 hover:bg-white/30 hover:shadow-2xl overflow-hidden relative pl-0 pr-3 py-3"
-                            style={{
-                              left: `calc(50% + ${x}px - 65px)`, // Adjust for larger pill width
-                              top: `calc(50% + ${y}px - 20px)`,   // Adjust for larger pill height
-                              opacity: 1,
-                              zIndex: 10,
-                              position: 'absolute',
-                              minWidth: '130px',
-                              height: '40px',
-                              boxShadow: `0 0 0 rgba(${parseInt(category.borderColors.from.slice(1, 3), 16)}, ${parseInt(category.borderColors.from.slice(3, 5), 16)}, ${parseInt(category.borderColors.from.slice(5, 7), 16)}, 0)`,
-                              transition: 'all 0.3s ease, box-shadow 0.3s ease'
-                            }}
-                            onMouseEnter={(e) => {
-                              e.target.style.boxShadow = `0 0 20px ${category.borderColors.from}60`;
-                            }}
-                            onMouseLeave={(e) => {
-                              e.target.style.boxShadow = `0 0 0 rgba(${parseInt(category.borderColors.from.slice(1, 3), 16)}, ${parseInt(category.borderColors.from.slice(3, 5), 16)}, ${parseInt(category.borderColors.from.slice(5, 7), 16)}, 0)`;
-                            }}
-                          >
-                            {/* Border Beam for Skill Pill */}
-                            <BorderBeam
-                              duration={12 + skillIndex * 2}
-                              delay={skillIndex * 0.3}
-                              colorFrom={category.borderColors.from}
-                              colorTo={category.borderColors.to}
-                              borderWidth={2}
-                            />
-                            
-                            {/* Logo on the left */}
-                            <div className="flex-shrink-0 w-8 h-8 bg-white rounded-full flex items-center justify-center mr-3 ml-1">
-                              <img
-                                src={skill.logo}
-                                alt={skill.name}
-                                className="w-7 h-7 object-contain group-hover:scale-110 transition-transform duration-300"
-                                onError={(e) => {
-                                  e.target.src = 'https://cdn-icons-png.flaticon.com/512/1126/1126012.png';
+                        <OrbitingCircles
+                          key={`ring-${ringIndex}`}
+                          className="size-[140px] border-none bg-transparent"
+                          radius={ringRadius}
+                          duration={ringDuration}
+                          reverse={isReverse}
+                          path={true}
+                        >
+                          {ringSkills.map((skill, skillIndex) => (
+                            <div
+                              key={`${ringIndex}-${skillIndex}`}
+                              className="group cursor-pointer"
+                            >
+                              {/* Skill Pill */}
+                              <div
+                                className="flex items-center bg-white/20 backdrop-blur-sm border-2 border-white/40 rounded-full transform transition-all duration-300 hover:scale-110 hover:bg-white/30 hover:shadow-2xl overflow-hidden relative pl-0 pr-3 py-2"
+                                style={{
+                                  minWidth: '120px',
+                                  height: '36px',
+                                  boxShadow: hexToRgba(getBorderColors(category).from, 0),
+                                  transition: 'all 0.3s ease, box-shadow 0.3s ease'
                                 }}
-                              />
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.boxShadow = `0 0 20px ${getBorderColors(category).from}60`;
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.boxShadow = hexToRgba(getBorderColors(category).from, 0);
+                                }}
+                              >
+                                {/* Border Beam for Skill Pill */}
+                                <BorderBeam
+                                  duration={15 + skillIndex * 2}
+                                  delay={(ringIndex * 2) + (skillIndex * 0.5)}
+                                  colorFrom={getBorderColors(category).from}
+                                  colorTo={getBorderColors(category).to}
+                                  borderWidth={2}
+                                />
+                                
+                                {/* Logo */}
+                                <div className="flex-shrink-0 w-7 h-7 bg-white rounded-full flex items-center justify-center mr-2 ml-1">
+                                  <img
+                                    src={skill.logo}
+                                    alt={skill.name}
+                                    className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
+                                    onError={(e) => {
+                                      e.target.src = 'https://cdn-icons-png.flaticon.com/512/1126/1126012.png';
+                                    }}
+                                  />
+                                </div>
+                                
+                                {/* Text */}
+                                <span className="text-white text-sm font-medium group-hover:text-purple-200 transition-colors duration-300 truncate flex-1">
+                                  {skill.name}
+                                </span>
+                              </div>
                             </div>
-                            
-                            {/* Text on the right */}
-                            <span className="text-white text-sm font-medium group-hover:text-purple-200 transition-colors duration-300 truncate flex-1">
-                              {skill.name}
-                            </span>
-                          </div>
-
-                          {/* Static Connection Line from center to satellite pill */}
-                          <div
-                            className="absolute pointer-events-none"
-                            style={{
-                              left: `calc(50% - 1px)`, // Center the line start point
-                              top: `calc(50% - 0.5px)`, // Center the line start point
-                              width: `${dynamicRadius - 20}px`, // Shorter line to account for pill width and dynamic radius
-                              height: '2px',
-                              transformOrigin: '0 50%',
-                              transform: `rotate(${angle}deg)`,
-                              background: `linear-gradient(to right, ${category.borderColors.from}80, transparent)`,
-                              opacity: 0.7,
-                              zIndex: 5
-                            }}
-                          />
-                        </div>
+                          ))}
+                        </OrbitingCircles>
                       );
                     })}
 
-                    {/* Orbiting particles effect */}
-                    <div className="absolute inset-0 pointer-events-none">
-                      {[...Array(4)].map((_, i) => {
-                        const orbitAngle = (i * 90);
-                        const orbitRadian = (orbitAngle * Math.PI) / 180;
-                        const orbitRadius = baseRadius * 0.7;
-                        const orbitX = Math.cos(orbitRadian) * orbitRadius;
-                        const orbitY = Math.sin(orbitRadian) * orbitRadius;
-                        
-                        return (
-                          <div
-                            key={i}
-                            className="absolute w-1 h-1 rounded-full opacity-60"
-                            style={{
-                              left: `calc(50% + ${orbitX}px)`,
-                              top: `calc(50% + ${orbitY}px)`,
-                              background: category.borderColors.from,
-                              animation: `orbit-${categoryIndex} ${8 + i}s linear infinite`,
-                              animationDelay: `${i * 0.3}s`
-                            }}
-                          />
-                        );
-                      })}
-                    </div>
-
                     {/* Category Progress Indicator */}
-                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center">
+                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center z-20">
                       <div className={`h-1 w-24 lg:w-32 rounded-full bg-gradient-to-r`} 
                            style={{
-                             background: `linear-gradient(to right, ${category.borderColors.from}, ${category.borderColors.to})`
+                             background: `linear-gradient(to right, ${getBorderColors(category).from}, ${getBorderColors(category).to})`
                            }}>
                       </div>
                     </div>
@@ -657,105 +658,14 @@ const Skills = ({ onBack }) => {
           }
         }
 
-        @keyframes orbit-0 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(120px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(120px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-1 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(125px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(125px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-2 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(130px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(130px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-3 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(115px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(115px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-4 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(125px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(125px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-5 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(135px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(135px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-6 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(120px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(120px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-7 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(128px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(128px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-8 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(122px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(122px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-9 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(127px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(127px) rotate(-360deg);
-          }
-        }
-
-        @keyframes orbit-10 {
-          from {
-            transform: translate(-50%, -50%) rotate(0deg) translateX(132px) rotate(0deg);
-          }
-          to {
-            transform: translate(-50%, -50%) rotate(360deg) translateX(132px) rotate(-360deg);
-          }
+        /* Orbiting animations are handled by the OrbitingCircles component */
+        .animate-orbit {
+          animation: var(--animate-orbit);
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

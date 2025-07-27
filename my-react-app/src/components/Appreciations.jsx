@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, MessageSquare, Users, Star, Quote, Calendar, User, Building2 } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import Footer from './Footer';
 
 const Appreciations = ({ onBack }) => {
   const [selectedType, setSelectedType] = useState('all');
@@ -404,6 +405,9 @@ const Appreciations = ({ onBack }) => {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

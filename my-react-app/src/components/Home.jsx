@@ -7,6 +7,7 @@ import Achievements from './Achievements';
 import Appreciations from './Appreciations';
 import Now from './Now';
 import Future from './Future';
+import Footer from './Footer';
 import { Confetti } from './magicui/confetti';
 
 const Home = () => {
@@ -148,7 +149,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 relative overflow-hidden flex flex-col">
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
       
@@ -184,8 +185,8 @@ const Home = () => {
         ))}
       </div>
 
-      {/* Main container - full screen centered */}
-      <div className="flex items-center justify-center h-screen w-screen relative">
+      {/* Main container - flexible content area */}
+      <div className="flex-1 flex items-center justify-center relative">
         
         {/* Center circle - Celebrating 3 years at UHG */}
         <div className="w-80 h-80 md:w-96 md:h-96 rounded-full flex items-center justify-center relative z-20 shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105"
@@ -290,6 +291,9 @@ const Home = () => {
           <div className="absolute w-[1000px] h-[1000px] md:w-[1100px] md:h-[1100px] border border-blue-200 rounded-full opacity-5 animate-spin" style={{ animationDuration: '40s' }}></div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
