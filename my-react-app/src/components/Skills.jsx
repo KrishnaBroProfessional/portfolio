@@ -4,7 +4,9 @@ import { BorderBeam } from './magicui/border-beam';
 import { IconCloud } from './magicui/icon-cloud-new';
 import { OrbitingCircles } from './magicui/orbiting-circles';
 import NumberTicker from './ui/number-ticker';
+import { TracingBeam } from './ui/tracing-beam';
 import Footer from './Footer';
+import { CoolMode } from './magicui/cool-mode';
 
 const Skills = ({ onBack }) => {
   const containerRef = useRef(null);
@@ -362,26 +364,32 @@ const Skills = ({ onBack }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.1),transparent_50%)]"></div>
       
       {/* Back button */}
-      <button
-        onClick={onBack}
-        className="fixed top-8 left-8 z-30 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-      >
-        ← Back to Home
-      </button>
+      <CoolMode>
+        <button
+          onClick={onBack}
+          className="fixed top-8 left-8 z-30 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          ← Back to Home
+        </button>
+      </CoolMode>
 
       {/* Toggle Icon Cloud Button */}
-      <button
-        onClick={() => setIsIconCloudEnabled(!isIconCloudEnabled)}
-        className="fixed top-8 right-8 z-30 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
-      >
-        <Cloud className="w-4 h-4" />
-        {isIconCloudEnabled ? 'Disable' : 'Enable'} Icon Cloud
-      </button>
+      <CoolMode>
+        <button
+          onClick={() => setIsIconCloudEnabled(!isIconCloudEnabled)}
+          className="fixed top-8 right-8 z-30 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
+        >
+          <Cloud className="w-4 h-4" />
+          {isIconCloudEnabled ? 'Disable' : 'Enable'} Icon Cloud
+        </button>
+      </CoolMode>
 
-      {/* Page content */}
-      <div ref={containerRef} className="flex flex-col items-center justify-start min-h-screen px-2 py-20">
+      {/* Tracing Beam Wrapper */}
+      <TracingBeam>
+        {/* Page content */}
+        <div ref={containerRef} className="flex flex-col items-center justify-start min-h-screen px-2 pt-20">
         {/* Page title */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 mt-2.5">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Technical Skills
           </h1>
@@ -406,18 +414,32 @@ const Skills = ({ onBack }) => {
               </div>
             </div>
           ) : (
-            /* Orbiting Circles Layout */
+            /* Optimized Orbiting Circles Layout */
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">{skillCategories.map((category, categoryIndex) => {
-              const containerSize = 800;
+              const containerSize = 900; // Increased container size for better spacing
               
-              // Distribute skills across multiple orbit rings for better spacing
+              // Smart distribution of skills across orbit rings with better spacing
               const distributeSkillsInRings = (skills) => {
                 const rings = [];
-                const skillsPerRing = [4, 6, 8, 10]; // Progressive ring sizes
-                let currentIndex = 0;
+                const totalSkills = skills.length;
                 
-                for (let ringIndex = 0; ringIndex < 4 && currentIndex < skills.length; ringIndex++) {
-                  const skillsInThisRing = Math.min(skillsPerRing[ringIndex], skills.length - currentIndex);
+                // Adaptive ring configuration based on skill count
+                // Outermost ring gets most skills, innermost gets least
+                let ringConfig;
+                if (totalSkills <= 8) {
+                  ringConfig = [5, 3]; // 2 rings: outer 5, inner 3
+                } else if (totalSkills <= 16) {
+                  ringConfig = [8, 5, 3]; // 3 rings: outer to inner distribution
+                } else if (totalSkills <= 24) {
+                  ringConfig = [9, 7, 5, 3]; // 4 rings: decreasing inward
+                } else {
+                  ringConfig = [11, 9, 7, 5, 3]; // 5 rings: maximum distribution from outer to inner
+                }
+                
+                let currentIndex = 0;
+                // Fill from outermost ring (index 0) to innermost ring
+                for (let ringIndex = 0; ringIndex < ringConfig.length && currentIndex < totalSkills; ringIndex++) {
+                  const skillsInThisRing = Math.min(ringConfig[ringIndex], totalSkills - currentIndex);
                   rings.push(skills.slice(currentIndex, currentIndex + skillsInThisRing));
                   currentIndex += skillsInThisRing;
                 }
@@ -449,96 +471,119 @@ const Skills = ({ onBack }) => {
                     {/* Category Title Circle - Absolute Center */}
                     <div className="absolute inset-0 flex items-center justify-center z-30">
                       <div
-                        className="relative flex items-center justify-center w-32 h-32 rounded-full shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105"
+                        className="relative flex items-center justify-center w-36 h-36 rounded-full shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105"
                         style={{
                           background: `linear-gradient(135deg, ${getBorderColors(category).from}, ${getBorderColors(category).to})`,
-                          boxShadow: `0 0 40px ${getBorderColors(category).from}60`
+                          boxShadow: `0 0 50px ${getBorderColors(category).from}40`
                         }}
                       >
                         {/* Border Beam for Header */}
                         <BorderBeam
-                          duration={20 + categoryIndex * 3}
-                          delay={categoryIndex * 0.5}
+                          duration={25 + categoryIndex * 5}
+                          delay={categoryIndex * 0.8}
                           colorFrom={getBorderColors(category).from}
                           colorTo={getBorderColors(category).to}
                           borderWidth={3}
                         />
                         
-                        <div className="text-center px-2">
+                        <div className="text-center px-3">
                           {typeof category.icon === 'string' ? (
-                            <div className="w-6 h-6 lg:w-8 lg:h-8 text-white mb-1 lg:mb-2 mx-auto flex items-center justify-center text-lg lg:text-xl">
+                            <div className="w-8 h-8 lg:w-10 lg:h-10 text-white mb-2 mx-auto flex items-center justify-center text-xl lg:text-2xl">
                               {category.icon}
                             </div>
                           ) : (
-                            <category.icon className="w-6 h-6 lg:w-8 lg:h-8 text-white mb-1 lg:mb-2 mx-auto" />
+                            <category.icon className="w-8 h-8 lg:w-10 lg:h-10 text-white mb-2 mx-auto" />
                           )}
-                          <h3 className="text-white font-bold text-xs lg:text-sm leading-tight">
+                          <h3 className="text-white font-bold text-sm lg:text-base leading-tight">
                             {category.title}
                           </h3>
                         </div>
                       </div>
                     </div>
 
-                    {/* Orbiting Skills Rings */}
+                    {/* Optimized Orbiting Skills Rings */}
                     {skillRings.map((ringSkills, ringIndex) => {
-                      const baseRadii = [140, 190, 240, 290]; // Well-spaced orbit radii
+                      // Expanded radius spacing for better visual separation
+                      const baseRadii = [170, 250, 330, 410, 490]; // Increased radii for better spacing
                       const ringRadius = baseRadii[ringIndex];
-                      const ringDuration = 30 + (ringIndex * 15); // Slower speeds: 30s, 45s, 60s, 75s
-                      const isReverse = ringIndex % 2 === 1; // Alternate direction for visual appeal
+                      
+                      // Staggered animation speeds for visual interest and clear reverse visualization
+                      const ringDuration = 100 + (ringIndex * 15); // 60s, 75s, 90s, 105s, 120s - much slower rotation
+                      
+                      // Properly alternate directions for counter-rotating effect
+                      // Ring 0: clockwise (reverse=false), Ring 1: counter-clockwise (reverse=true), etc.
+                      const isReverse = ringIndex % 2 === 1;
+                      
+                      console.log(`Ring ${ringIndex}: radius=${ringRadius}, duration=${ringDuration}s, reverse=${isReverse}, skills=${ringSkills.length}`);
                       
                       return (
                         <OrbitingCircles
                           key={`ring-${ringIndex}`}
-                          className="size-[140px] border-none bg-transparent"
                           radius={ringRadius}
                           duration={ringDuration}
-                          reverse={isReverse}
-                          path={true}
+                          speed={2}
+                          reverse
+                          iconSize={160} // Increased icon size to accommodate larger pills
                         >
                           {ringSkills.map((skill, skillIndex) => (
                             <div
                               key={`${ringIndex}-${skillIndex}`}
                               className="group cursor-pointer"
                             >
-                              {/* Skill Pill */}
+                              {/* Enhanced Skill Pill */}
                               <div
-                                className="flex items-center bg-white/20 backdrop-blur-sm border-2 border-white/40 rounded-full transform transition-all duration-300 hover:scale-110 hover:bg-white/30 hover:shadow-2xl overflow-hidden relative pl-0 pr-3 py-2"
+                                className="flex items-center bg-white/15 backdrop-blur-md border-2 border-white/30 rounded-full transform transition-all duration-500 hover:scale-110 hover:bg-white/25 hover:shadow-2xl overflow-hidden relative pl-1 pr-4 py-2"
                                 style={{
-                                  minWidth: '120px',
-                                  height: '36px',
-                                  boxShadow: hexToRgba(getBorderColors(category).from, 0),
-                                  transition: 'all 0.3s ease, box-shadow 0.3s ease'
+                                  minWidth: ringIndex === 0 ? '140px' : ringIndex === 1 ? '135px' : '130px', // Responsive sizing based on ring
+                                  height: ringIndex === 0 ? '42px' : ringIndex === 1 ? '40px' : '38px', // Slightly larger for better visibility
+                                  boxShadow: `0 4px 20px ${hexToRgba(getBorderColors(category).from, 0.3)}`,
+                                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                  backdropFilter: 'blur(12px)',
+                                  border: `2px solid ${getBorderColors(category).from}50`
                                 }}
                                 onMouseEnter={(e) => {
-                                  e.currentTarget.style.boxShadow = `0 0 20px ${getBorderColors(category).from}60`;
+                                  e.currentTarget.style.boxShadow = `0 0 30px ${getBorderColors(category).from}80, 0 0 60px ${getBorderColors(category).from}40`;
+                                  e.currentTarget.style.borderColor = `${getBorderColors(category).from}`;
                                 }}
                                 onMouseLeave={(e) => {
-                                  e.currentTarget.style.boxShadow = hexToRgba(getBorderColors(category).from, 0);
+                                  e.currentTarget.style.boxShadow = `0 4px 20px ${hexToRgba(getBorderColors(category).from, 0.3)}`;
+                                  e.currentTarget.style.borderColor = `${getBorderColors(category).from}50`;
                                 }}
                               >
-                                {/* Border Beam for Skill Pill */}
+                                {/* Enhanced Border Beam */}
                                 <BorderBeam
-                                  duration={15 + skillIndex * 2}
-                                  delay={(ringIndex * 2) + (skillIndex * 0.5)}
+                                  duration={20 + skillIndex * 3}
+                                  delay={(ringIndex * 3) + (skillIndex * 0.8)}
                                   colorFrom={getBorderColors(category).from}
                                   colorTo={getBorderColors(category).to}
                                   borderWidth={2}
                                 />
                                 
-                                {/* Logo */}
-                                <div className="flex-shrink-0 w-7 h-7 bg-white rounded-full flex items-center justify-center mr-2 ml-1">
+                                {/* Logo with better sizing */}
+                                <div className="flex-shrink-0 bg-white/90 rounded-full flex items-center justify-center mr-3 ml-1"
+                                     style={{
+                                       width: ringIndex === 0 ? '32px' : '30px',
+                                       height: ringIndex === 0 ? '32px' : '30px'
+                                     }}>
                                   <img
                                     src={skill.logo}
                                     alt={skill.name}
-                                    className="w-6 h-6 object-contain group-hover:scale-110 transition-transform duration-300"
+                                    className="object-contain group-hover:scale-110 transition-transform duration-300"
+                                    style={{
+                                      width: ringIndex === 0 ? '24px' : '22px',
+                                      height: ringIndex === 0 ? '24px' : '22px'
+                                    }}
                                     onError={(e) => {
                                       e.target.src = 'https://cdn-icons-png.flaticon.com/512/1126/1126012.png';
                                     }}
                                   />
                                 </div>
                                 
-                                {/* Text */}
-                                <span className="text-white text-sm font-medium group-hover:text-purple-200 transition-colors duration-300 truncate flex-1">
+                                {/* Text with responsive sizing */}
+                                <span className="text-white font-medium group-hover:text-purple-200 transition-colors duration-300 truncate flex-1"
+                                      style={{
+                                        fontSize: ringIndex === 0 ? '14px' : ringIndex === 1 ? '13px' : '12px'
+                                      }}>
                                   {skill.name}
                                 </span>
                               </div>
@@ -548,12 +593,18 @@ const Skills = ({ onBack }) => {
                       );
                     })}
 
-                    {/* Category Progress Indicator */}
-                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex justify-center z-20">
-                      <div className={`h-1 w-24 lg:w-32 rounded-full bg-gradient-to-r`} 
-                           style={{
-                             background: `linear-gradient(to right, ${getBorderColors(category).from}, ${getBorderColors(category).to})`
-                           }}>
+                    {/* Enhanced Category Progress Indicator */}
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex justify-center z-20">
+                      <div className="flex flex-col items-center space-y-2">
+                        <div className={`h-2 w-32 lg:w-40 rounded-full bg-gradient-to-r shadow-lg`} 
+                             style={{
+                               background: `linear-gradient(to right, ${getBorderColors(category).from}, ${getBorderColors(category).to})`,
+                               boxShadow: `0 0 20px ${getBorderColors(category).from}40`
+                             }}>
+                        </div>
+                        <div className="text-white/60 text-xs font-medium">
+                          {category.skills.length} Skills
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -607,11 +658,17 @@ const Skills = ({ onBack }) => {
             </button>
           </div>
         </div>
+        </div>
+      </TracingBeam>
+
+      {/* Footer - Outside TracingBeam for full width */}
+      <div className="w-full">
+        <Footer />
       </div>
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(60)].map((_, i) => (
           <div
             key={i}
             className="absolute w-2 h-2 bg-purple-400 rounded-full opacity-30 animate-pulse"
@@ -619,7 +676,9 @@ const Skills = ({ onBack }) => {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`
+              animationDuration: `${3 + Math.random() * 2}s`,
+              transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`,
+              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite alternate, pulse ${3 + Math.random() * 2}s ease-in-out infinite`
             }}
           ></div>
         ))}
@@ -657,15 +716,24 @@ const Skills = ({ onBack }) => {
             opacity: 1;
           }
         }
-
-        /* Orbiting animations are handled by the OrbitingCircles component */
-        .animate-orbit {
-          animation: var(--animate-orbit);
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px);
+          }
+          25% {
+            transform: translateY(-20px) translateX(10px);
+          }
+          50% {
+            transform: translateY(-10px) translateX(-15px);
+          }
+          75% {
+            transform: translateY(-25px) translateX(5px);
+          }
         }
-      `}</style>
 
-      {/* Footer */}
-      <Footer />
+        /* Orbiting animations are handled by the OrbitingCircles component and defined in index.css */
+      `}</style>
     </div>
   );
 };

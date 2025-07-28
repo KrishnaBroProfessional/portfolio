@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { 
   Star, Target, Calendar, Zap, 
   Bot, GraduationCap, Cpu, 
-  MessageCircle, ChevronLeft, ArrowRight 
+  MessageCircle, ChevronLeft 
 } from 'lucide-react';
-import { BorderBeam } from './magicui/border-beam';
-import { TracingBeam } from './ui/tracing-beam';
-import { LineShadowText } from './magicui/line-shadow-text';
-import { MacbookScroll } from './ui/macbook-scroll';
-import { CoolMode } from './magicui/cool-mode';
+import BorderBeam from './ui/BorderBeam';
+import TracingBeam from './ui/tracing-beam';
 import Footer from './Footer';
 
 const Future = ({ onBack }) => {
@@ -46,95 +43,95 @@ const Future = ({ onBack }) => {
     }
   ];
 
-  // Career-focused roadmap with aspiring roles
+  // Roadmap with tech innovation focus
   const roadmap = {
     short: [
       {
         id: 1,
-        title: "Senior Project Engineer Role Preparation",
-        description: "Develop advanced project management and technical leadership skills to transition into a Senior Project Engineer position within the next year.",
-        timeframe: "2025-2026",
+        title: "AI/ML Mastery & Certification",
+        description: "Complete advanced AI/ML certifications and specialized training programs to deepen expertise in machine learning, deep learning, and neural networks.",
+        timeframe: "Q1-Q2 2025",
         status: "In Progress",
         priority: "High",
         milestones: [
-          "Complete PMP/Agile certification",
-          "Lead 2-3 complex cross-functional projects",
-          "Build stakeholder management expertise",
-          "Demonstrate cost optimization impact"
+          "Complete TensorFlow Developer Certification",
+          "Finish Advanced Deep Learning Specialization",
+          "Build 3 production-ready AI applications",
+          "Publish research on innovative ML techniques"
         ]
       },
       {
         id: 2,
-        title: "Technical Leadership Excellence",
-        description: "Strengthen technical leadership capabilities and expand expertise in system design and architecture fundamentals.",
-        timeframe: "Q3-Q4 2025",
-        status: "Active",
+        title: "Innovation Lab Establishment",
+        description: "Set up a personal innovation laboratory for experimenting with emerging technologies, prototyping solutions, and conducting tech research.",
+        timeframe: "Q2-Q3 2025",
+        status: "Planning",
         priority: "High",
         milestones: [
-          "Complete system design courses",
-          "Mentor junior engineers",
-          "Lead technical architecture decisions",
-          "Publish technical blog posts"
+          "Secure lab space and equipment",
+          "Establish partnerships with tech vendors",
+          "Create research methodology framework",
+          "Launch first experimental project"
         ]
       }
     ],
     medium: [
       {
         id: 3,
-        title: "Solution Architect Transition",
-        description: "Advance to Solution Architect role by mastering enterprise architecture, cloud solutions, and strategic technology planning.",
-        timeframe: "2026-2029",
-        status: "Planning",
+        title: "Tech Startup Foundation",
+        description: "Launch an innovative technology startup focused on AI-driven solutions that address real-world challenges across multiple industries.",
+        timeframe: "2026-2027",
+        status: "Research",
         priority: "High",
         milestones: [
-          "Earn AWS/Azure Solution Architect certification",
-          "Design end-to-end enterprise solutions",
-          "Build cross-domain architecture expertise",
-          "Establish thought leadership in industry"
+          "Validate market opportunities",
+          "Develop MVP and business model",
+          "Secure initial funding round",
+          "Build core development team"
         ]
       },
       {
         id: 4,
-        title: "Innovation & Architecture Mastery",
-        description: "Develop deep expertise in emerging technologies and establish reputation as a strategic technology advisor and innovation catalyst.",
-        timeframe: "2027-2029",
+        title: "Mentorship Program Launch",
+        description: "Create and launch a comprehensive mentorship program for aspiring tech professionals, focusing on AI, automation, and innovation.",
+        timeframe: "2026-2028",
         status: "Conceptual",
         priority: "Medium",
         milestones: [
-          "Lead digital transformation initiatives",
-          "Speak at industry conferences",
-          "Build strategic vendor partnerships",
-          "Mentor solution architect teams"
+          "Design curriculum and program structure",
+          "Build mentor network",
+          "Launch pilot program",
+          "Scale to 100+ mentees"
         ]
       }
     ],
     long: [
       {
         id: 5,
-        title: "AI/Automation Leadership Role",
-        description: "Transition to executive leadership in AI and automation, driving organizational transformation and industry innovation.",
-        timeframe: "2030+",
+        title: "Global Tech Innovation Hub",
+        description: "Establish an international technology innovation hub that brings together the brightest minds to solve humanity's greatest challenges.",
+        timeframe: "2028-2030",
         status: "Vision",
         priority: "High",
         milestones: [
-          "Lead AI/automation center of excellence",
-          "Drive enterprise-wide AI strategy",
-          "Build innovation partnerships",
-          "Establish industry thought leadership"
+          "Secure international partnerships",
+          "Establish physical and virtual presence",
+          "Launch collaborative research initiatives",
+          "Impact 10,000+ innovators globally"
         ]
       },
       {
         id: 6,
-        title: "Technology Visionary & Influencer",
-        description: "Become a recognized technology visionary, shaping the future of AI and automation across industries and mentoring the next generation.",
-        timeframe: "2032+",
+        title: "Technology Legacy Foundation",
+        description: "Create a foundation dedicated to ensuring equitable access to advanced technology education and innovation opportunities worldwide.",
+        timeframe: "2030+",
         status: "Vision",
         priority: "Medium",
         milestones: [
-          "Establish innovation think tank",
-          "Advisory roles in tech startups",
-          "Global speaking and consulting",
-          "Technology policy influence"
+          "Establish foundation structure",
+          "Build global network of education centers",
+          "Launch scholarship programs",
+          "Impact 1M+ students globally"
         ]
       }
     ]
@@ -169,17 +166,16 @@ const Future = ({ onBack }) => {
   ];
 
   const timeframes = [
-    { id: 'short', name: 'Next 1-2 Years', icon: Zap, count: roadmap.short.length },
-    { id: 'medium', name: '2-4 Years', icon: Target, count: roadmap.medium.length },
-    { id: 'long', name: '5+ Years', icon: Star, count: roadmap.long.length }
+    { id: 'short', name: 'Short Term', icon: Zap, count: roadmap.short.length },
+    { id: 'medium', name: 'Medium Term', icon: Target, count: roadmap.medium.length },
+    { id: 'long', name: 'Long Term', icon: Star, count: roadmap.long.length }
   ];
 
   const getStatusColor = (status) => {
     const colors = {
       'In Progress': 'bg-green-500/20 text-green-300',
-      'Active': 'bg-blue-500/20 text-blue-300',
-      'Planning': 'bg-yellow-500/20 text-yellow-300',
-      'Research': 'bg-orange-500/20 text-orange-300',
+      'Planning': 'bg-blue-500/20 text-blue-300',
+      'Research': 'bg-yellow-500/20 text-yellow-300',
       'Conceptual': 'bg-purple-500/20 text-purple-300',
       'Vision': 'bg-indigo-500/20 text-indigo-300'
     };
@@ -201,14 +197,12 @@ const Future = ({ onBack }) => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 via-slate-900 to-slate-900"></div>
       
       {/* Back button */}
-      <CoolMode>
-        <button
-          onClick={onBack}
-          className="fixed top-8 left-8 z-30 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-        >
-          ← Back to Home
-        </button>
-      </CoolMode>
+      <button
+        onClick={onBack}
+        className="fixed top-8 left-8 z-30 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+      >
+        ← Back to Home
+      </button>
 
       {/* Tracing Beam Wrapper */}
       <TracingBeam>
@@ -281,20 +275,19 @@ const Future = ({ onBack }) => {
               {/* Timeframe Filter */}
               <div className="flex flex-wrap justify-center gap-4 mb-12">
                 {timeframes.map((timeframe) => (
-                  <CoolMode key={timeframe.id}>
-                    <button
-                      onClick={() => setSelectedTimeframe(timeframe.id)}
-                      className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                        selectedTimeframe === timeframe.id
-                          ? 'bg-indigo-600 text-white shadow-lg'
-                          : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                      }`}
-                    >
-                      <timeframe.icon className="w-5 h-5" />
-                      <span>{timeframe.name}</span>
-                      <span className="bg-white/20 px-2 py-1 rounded-full text-xs">{timeframe.count}</span>
-                    </button>
-                  </CoolMode>
+                  <button
+                    key={timeframe.id}
+                    onClick={() => setSelectedTimeframe(timeframe.id)}
+                    className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+                      selectedTimeframe === timeframe.id
+                        ? 'bg-indigo-600 text-white shadow-lg'
+                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                    }`}
+                  >
+                    <timeframe.icon className="w-5 h-5" />
+                    <span>{timeframe.name}</span>
+                    <span className="bg-white/20 px-2 py-1 rounded-full text-xs">{timeframe.count}</span>
+                  </button>
                 ))}
               </div>
 
@@ -392,33 +385,9 @@ const Future = ({ onBack }) => {
               </div>
             </section>
 
-            {/* What's Next */}
-            <section className="mt-24">
-              <div className="text-center mb-2">
-                <h2 
-                  className="text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-none whitespace-nowrap inline-block"
-                  style={{
-                    animation: 'fadeInUp 0.8s ease-out forwards'
-                  }}
-                >
-                  <LineShadowText shadowColor="#a855f7">
-                    What's Next
-                  </LineShadowText>
-                </h2>
-              </div>
-              
-              {/* MacBook with Meme */}
-              <div className="relative">
-                <MacbookScroll
-                  src="https://media.licdn.com/dms/image/v2/D5622AQHpTnxbA2A1-g/feedshare-shrink_800/B56Zf9pm76G0As-/0/1752307234476?e=2147483647&v=beta&t=NeRH2cLjRE70wOphkO6D3zVMPxffmf9D9cY78YQYkCU"
-                  showGradient={true}
-                />
-              </div>
-            </section>
-
             {/* Bottom CTA */}
-            <section className="mt-32 text-center">
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-2xl mx-auto relative">
+            <section className="mt-16 text-center">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-2xl mx-auto relative">
                 <BorderBeam
                   duration={20}
                   delay={1}
@@ -427,22 +396,18 @@ const Future = ({ onBack }) => {
                   borderWidth={2}
                 />
                 <h3 className="text-2xl font-bold text-white mb-4">Ready to Innovate Together?</h3>
-                {/* <p className="text-gray-300 mb-6 leading-relaxed">
+                <p className="text-gray-300 mb-6 leading-relaxed">
                   Join me on this journey of technological innovation and transformation. Let's build the future together through cutting-edge solutions and meaningful mentorship.
-                </p> */}
+                </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <CoolMode>
-                    <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2">
-                      <Zap className="w-5 h-5" />
-                      Let's Collaborate
-                    </button>
-                  </CoolMode>
-                  <CoolMode>
-                    <button className="border border-indigo-400 text-indigo-400 hover:bg-indigo-400 hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2">
-                      <MessageCircle className="w-5 h-5" />
-                      Start a Conversation
-                    </button>
-                  </CoolMode>
+                  <button className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 flex items-center gap-2">
+                    <Zap className="w-5 h-5" />
+                    Let's Collaborate
+                  </button>
+                  <button className="border border-indigo-400 text-indigo-400 hover:bg-indigo-400 hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2">
+                    <MessageCircle className="w-5 h-5" />
+                    Start a Conversation
+                  </button>
                 </div>
               </div>
             </section>
@@ -452,7 +417,7 @@ const Future = ({ onBack }) => {
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(25)].map((_, i) => (
           <div
             key={i}
             className="absolute w-2 h-2 bg-indigo-400 rounded-full opacity-30 animate-pulse"
@@ -460,16 +425,14 @@ const Future = ({ onBack }) => {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
-              transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`,
-              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite alternate, pulse ${3 + Math.random() * 2}s ease-in-out infinite`
+              animationDuration: `${3 + Math.random() * 2}s`
             }}
           ></div>
         ))}
       </div>
 
       {/* Custom CSS Animations */}
-      <style>{`
+      <style jsx>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -478,21 +441,6 @@ const Future = ({ onBack }) => {
           to {
             opacity: 1;
             transform: translateY(0);
-          }
-        }
-        
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px) translateX(0px);
-          }
-          25% {
-            transform: translateY(-20px) translateX(10px);
-          }
-          50% {
-            transform: translateY(-10px) translateX(-15px);
-          }
-          75% {
-            transform: translateY(-25px) translateX(5px);
           }
         }
       `}</style>

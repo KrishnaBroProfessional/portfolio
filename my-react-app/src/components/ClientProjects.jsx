@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Building2, Star, Calendar, ArrowRight, ExternalLink, Code, Database, Cloud } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import { TracingBeam } from './ui/tracing-beam';
 import Footer from './Footer';
+import { CoolMode } from './magicui/cool-mode';
 
 const ClientProjects = ({ onBack }) => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -750,15 +752,18 @@ const ClientProjects = ({ onBack }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(249,115,22,0.1),transparent_50%)]"></div>
       
       {/* Back button */}
-      <button
-        onClick={onBack}
-        className="fixed top-8 left-8 z-30 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-      >
-        ← Back to Home
-      </button>
+      <CoolMode>
+        <button
+          onClick={onBack}
+          className="fixed top-8 left-8 z-30 bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          ← Back to Home
+        </button>
+      </CoolMode>
 
-      {/* Page content */}
-      <div className="flex flex-col items-center justify-start min-h-screen px-8 py-20">
+      <TracingBeam className="px-6">
+        {/* Page content */}
+        <div className="flex flex-col items-center justify-start min-h-screen px-8 pt-20">
         {/* Page title */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
@@ -773,11 +778,11 @@ const ClientProjects = ({ onBack }) => {
         <div className="max-w-7xl w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div
-                key={project.id}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-white/15 relative group"
-                onClick={() => setSelectedProject(project.id)}
-                style={{
+              <CoolMode key={project.id}>
+                <div
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-white/15 relative group"
+                  onClick={() => setSelectedProject(project.id)}
+                  style={{
                   animationDelay: `${index * 0.1}s`,
                   animation: 'fadeInUp 0.6s ease-out forwards'
                 }}
@@ -850,6 +855,7 @@ const ClientProjects = ({ onBack }) => {
                   <ArrowRight className="w-5 h-5 text-orange-400 group-hover:translate-x-1 transition-transform duration-300" />
                 </div>
               </div>
+              </CoolMode>
             ))}
           </div>
         </div>
@@ -904,6 +910,7 @@ const ClientProjects = ({ onBack }) => {
           }
         }
       `}</style>
+      </TracingBeam>
 
       {/* Footer */}
       <Footer />

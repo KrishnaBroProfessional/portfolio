@@ -9,6 +9,8 @@ import Now from './Now';
 import Future from './Future';
 import Footer from './Footer';
 import { Confetti } from './magicui/confetti';
+import { BorderBeam } from './magicui/border-beam';
+import { CoolMode } from './magicui/cool-mode';
 
 const Home = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -171,7 +173,7 @@ const Home = () => {
       
       {/* Floating particles for visual appeal */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(60)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-blue-300 rounded-full opacity-40 animate-pulse"
@@ -179,7 +181,9 @@ const Home = () => {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
+              animationDuration: `${2 + Math.random() * 2}s`,
+              transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`,
+              animation: `float ${10 + Math.random() * 5}s ease-in-out infinite alternate, pulse ${2 + Math.random() * 2}s ease-in-out infinite`
             }}
           ></div>
         ))}
@@ -188,16 +192,50 @@ const Home = () => {
       {/* Main container - flexible content area */}
       <div className="flex-1 flex items-center justify-center relative">
         
-        {/* Center circle - Celebrating 3 years at UHG */}
-        <div className="w-80 h-80 md:w-96 md:h-96 rounded-full flex items-center justify-center relative z-20 shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105"
-             style={{
-               background: 'linear-gradient(135deg, #1e40af, #3b82f6, #60a5fa)',
-               boxShadow: '0 0 50px rgba(59, 130, 246, 0.3)'
-             }}>
-          <span className="text-white font-bold text-2xl md:text-3xl text-center px-4 md:px-6 leading-tight relative z-10">
-            Celebrating<br />3 years<br />at UHG
-          </span>
-        </div>
+        {/* Center circle - Professional Journey */}
+        <CoolMode>
+          <div className="w-80 h-80 md:w-96 md:h-96 rounded-full flex flex-col items-center justify-center relative z-20 shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-105"
+               style={{
+                 background: 'linear-gradient(135deg, #1e40af, #3b82f6, #60a5fa)',
+                 boxShadow: '0 0 50px rgba(59, 130, 246, 0.3)'
+               }}>
+            <BorderBeam size={400} duration={12} colorFrom="#8b5cf6" colorTo="#3b82f6" />
+            
+            {/* Company Logos Section */}
+            <div className="flex flex-col items-center gap-3 mb-3">
+              {/* Wipro Logo - Primary */}
+              <div className="w-16 h-16 md:w-18 md:h-18 bg-white rounded-xl flex items-center justify-center p-2 shadow-lg">
+                <img 
+                  src="https://cdn.sanity.io/images/jpbok6l4/production/d26fc665839ba5827887fd01702304a1fbf6e8b2-500x500.png?auto=format&fit=max&q=75&w=250" 
+                  alt="Wipro Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              
+              {/* Serving relationship indicator */}
+              <div className="text-white font-medium text-sm">↓ Serving</div>
+              
+              {/* UHG Logo - Client */}
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-xl flex items-center justify-center p-2 shadow-lg">
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/en/2/29/UnitedHealthcare_%28logo%29.svg" 
+                  alt="UnitedHealthcare Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+            
+            {/* Main Text */}
+            <span className="text-white font-bold text-lg md:text-xl text-center px-4 md:px-6 leading-tight relative z-10">
+              Celebrating<br />3 Years
+            </span>
+            
+            {/* Subtitle */}
+            <span className="text-blue-100 font-medium text-sm md:text-base text-center px-4 md:px-6 leading-tight mt-2">
+              Serving UHG at Wipro
+            </span>
+          </div>
+        </CoolMode>
 
         {/* Surrounding circles in Wipro-style arrangement */}
         {circles.map((circle) => {
@@ -205,29 +243,48 @@ const Home = () => {
           const x = Math.cos(radian) * circle.radius;
           const y = Math.sin(radian) * circle.radius;
           
+          // Define BorderBeam properties based on circle size
+          const getBeamProps = (size) => {
+            if (size.includes('w-64')) return { size: 280, duration: 8, colorFrom: "#f59e0b", colorTo: "#d97706" };
+            if (size.includes('w-56')) return { size: 240, duration: 10, colorFrom: "#10b981", colorTo: "#059669" };
+            if (size.includes('w-48')) return { size: 200, duration: 6, colorFrom: "#ef4444", colorTo: "#dc2626" };
+            if (size.includes('w-40')) return { size: 170, duration: 9, colorFrom: "#8b5cf6", colorTo: "#7c3aed" };
+            if (size.includes('w-32')) return { size: 140, duration: 7, colorFrom: "#06b6d4", colorTo: "#0891b2" };
+            return { size: 120, duration: 8, colorFrom: "#f97316", colorTo: "#ea580c" };
+          };
+          
+          const beamProps = getBeamProps(circle.size);
+          
           return (
-            <div
-              key={circle.id}
-              className={`${circle.size} ${circle.bgColor} rounded-full flex items-center justify-center absolute cursor-pointer transform transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:z-30 shadow-lg`}
-              style={{
-                left: `calc(50% + ${x}px)`,
-                top: `calc(50% + ${y}px)`,
-                transform: `translate(-50%, -50%)`,
-                boxShadow: `0 0 20px ${circle.bgColor.replace('bg-', 'rgba(').replace('-500', ', 0.3)')}`
-              }}
-              onClick={() => handleCircleClick(circle.id)}
-            >
-              <span className={`text-white font-semibold text-center px-3 leading-tight ${
-                circle.size.includes('w-64') ? 'text-lg md:text-xl' :
-                circle.size.includes('w-56') ? 'text-base md:text-lg' :
-                circle.size.includes('w-48') ? 'text-sm md:text-base' :
-                circle.size.includes('w-40') ? 'text-sm' :
-                circle.size.includes('w-32') ? 'text-xs md:text-sm' :
-                'text-xs'
-              }`}>
-                {circle.text}
-              </span>
-            </div>
+            <CoolMode key={circle.id}>
+              <div
+                className={`${circle.size} ${circle.bgColor} rounded-full flex items-center justify-center absolute cursor-pointer transform transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:z-30 shadow-lg`}
+                style={{
+                  left: `calc(50% + ${x}px)`,
+                  top: `calc(50% + ${y}px)`,
+                  transform: `translate(-50%, -50%)`,
+                  boxShadow: `0 0 20px ${circle.bgColor.replace('bg-', 'rgba(').replace('-500', ', 0.3)')}`
+                }}
+                onClick={() => handleCircleClick(circle.id)}
+              >
+                <BorderBeam 
+                  size={beamProps.size} 
+                  duration={beamProps.duration} 
+                  colorFrom={beamProps.colorFrom} 
+                  colorTo={beamProps.colorTo} 
+                />
+                <span className={`text-white font-semibold text-center px-3 leading-tight relative z-10 ${
+                  circle.size.includes('w-64') ? 'text-lg md:text-xl' :
+                  circle.size.includes('w-56') ? 'text-base md:text-lg' :
+                  circle.size.includes('w-48') ? 'text-sm md:text-base' :
+                  circle.size.includes('w-40') ? 'text-sm' :
+                  circle.size.includes('w-32') ? 'text-xs md:text-sm' :
+                  'text-xs'
+                }`}>
+                  {circle.text}
+                </span>
+              </div>
+            </CoolMode>
           );
         })}
 
@@ -286,11 +343,35 @@ const Home = () => {
 
         {/* Outer orbit rings for visual enhancement */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-[600px] h-[600px] md:w-[700px] md:h-[700px] border border-blue-400 rounded-full opacity-20 animate-spin" style={{ animationDuration: '20s' }}></div>
-          <div className="absolute w-[800px] h-[800px] md:w-[900px] md:h-[900px] border border-blue-300 rounded-full opacity-10 animate-spin" style={{ animationDuration: '30s', animationDirection: 'reverse' }}></div>
-          <div className="absolute w-[1000px] h-[1000px] md:w-[1100px] md:h-[1100px] border border-blue-200 rounded-full opacity-5 animate-spin" style={{ animationDuration: '40s' }}></div>
+          <div className="w-[600px] h-[600px] md:w-[700px] md:h-[700px] border border-blue-400 rounded-full opacity-20 animate-spin relative" style={{ animationDuration: '20s' }}>
+            <BorderBeam size={650} duration={20} colorFrom="#60a5fa" colorTo="#3b82f6" />
+          </div>
+          <div className="absolute w-[800px] h-[800px] md:w-[900px] md:h-[900px] border border-blue-300 rounded-full opacity-10 animate-spin relative" style={{ animationDuration: '30s', animationDirection: 'reverse' }}>
+            <BorderBeam size={850} duration={30} colorFrom="#93c5fd" colorTo="#60a5fa" />
+          </div>
+          <div className="absolute w-[1000px] h-[1000px] md:w-[1100px] md:h-[1100px] border border-blue-200 rounded-full opacity-5 animate-spin relative" style={{ animationDuration: '40s' }}>
+            <BorderBeam size={1050} duration={40} colorFrom="#dbeafe" colorTo="#93c5fd" />
+          </div>
         </div>
       </div>
+
+      {/* Custom CSS Animations */}
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px);
+          }
+          25% {
+            transform: translateY(-15px) translateX(8px);
+          }
+          50% {
+            transform: translateY(-8px) translateX(-12px);
+          }
+          75% {
+            transform: translateY(-20px) translateX(4px);
+          }
+        }
+      `}</style>
 
       {/* Footer */}
       <Footer />

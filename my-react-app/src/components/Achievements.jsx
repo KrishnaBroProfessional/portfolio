@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Trophy, Medal, Star, Award, Target, TrendingUp, Users, Calendar, Code } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import { TracingBeam } from './ui/tracing-beam';
 import Footer from './Footer';
+import { CoolMode } from './magicui/cool-mode';
 
 const Achievements = ({ onBack }) => {
   const [selectedCategory, setSelectedCategory] = useState('professional');
@@ -19,18 +21,6 @@ const Achievements = ({ onBack }) => {
         borderColors: { from: '#eab308', to: '#f59e0b' },
         metrics: ["₹3000 total award amount", "Multiple recognitions", "Excellence in AI implementation"],
         impact: "Recognized by leadership for exceptional contributions to healthcare innovation"
-      },
-      {
-        id: 2,
-        title: "Excellence Award - UnitedHealth Group",
-        category: "Professional Excellence",
-        year: "2024",
-        description: "Recognized for outstanding performance in developing healthcare AI solutions that improved patient outcomes by 40%",
-        icon: Trophy,
-        color: "from-yellow-500 to-amber-500",
-        borderColors: { from: '#eab308', to: '#f59e0b' },
-        metrics: ["40% improvement in patient outcomes", "95% stakeholder satisfaction", "$2M+ cost savings"],
-        impact: "Transformed healthcare delivery for 500K+ patients"
       },
       {
         id: 3,
@@ -79,54 +69,6 @@ const Achievements = ({ onBack }) => {
         borderColors: { from: '#a855f7', to: '#ec4899' },
         metrics: ["94% fraud detection accuracy", "80% reduction in manual reviews", "$50M+ annual savings"],
         impact: "Set new industry standards for automated claims processing"
-      },
-      {
-        id: 7,
-        title: "Technical Leadership Award",
-        category: "Leadership Excellence",
-        year: "2023",
-        description: "Recognized for exceptional technical leadership in guiding cross-functional teams through complex healthcare platform development",
-        icon: Award,
-        color: "from-blue-500 to-cyan-500",
-        borderColors: { from: '#3b82f6', to: '#06b6d4' },
-        metrics: ["Led 15+ member team", "100% project delivery success", "Zero critical incidents"],
-        impact: "Mentored 10+ junior developers and established best practices"
-      },
-      {
-        id: 8,
-        title: "Patient Safety Excellence",
-        category: "Healthcare Impact",
-        year: "2022",
-        description: "Developed clinical decision support systems that significantly improved patient safety metrics across healthcare networks",
-        icon: Medal,
-        color: "from-green-500 to-emerald-500",
-        borderColors: { from: '#22c55e', to: '#10b981' },
-        metrics: ["40% improvement in safety metrics", "50K+ clinical decisions supported daily", "99.9% system uptime"],
-        impact: "Enhanced clinical outcomes for 1M+ patients annually"
-      },
-      {
-        id: 5,
-        title: "Digital Transformation Leader",
-        category: "Digital Innovation",
-        year: "2022",
-        description: "Spearheaded the modernization of legacy patient portal systems, dramatically improving user experience and accessibility",
-        icon: TrendingUp,
-        color: "from-orange-500 to-red-500",
-        borderColors: { from: '#f97316', to: '#ef4444' },
-        metrics: ["150% increase in user engagement", "70% faster load times", "3M+ patients served"],
-        impact: "Revolutionized patient experience across healthcare systems"
-      },
-      {
-        id: 6,
-        title: "Quality Assurance Excellence",
-        category: "Process Excellence",
-        year: "2021",
-        description: "Implemented comprehensive testing frameworks that reduced production defects by 90% across multiple healthcare applications",
-        icon: Target,
-        color: "from-indigo-500 to-purple-500",
-        borderColors: { from: '#6366f1', to: '#a855f7' },
-        metrics: ["90% reduction in production defects", "99.8% test coverage", "Zero security vulnerabilities"],
-        impact: "Established gold standard for healthcare software quality"
       },
       {
         id: 9,
@@ -690,15 +632,19 @@ const Achievements = ({ onBack }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(239,68,68,0.1),transparent_50%)]"></div>
       
       {/* Back button */}
-      <button
-        onClick={onBack}
-        className="fixed top-8 left-8 z-30 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-      >
-        ← Back to Home
-      </button>
+      <CoolMode>
+        <button
+          onClick={onBack}
+          className="fixed top-8 left-8 z-30 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          ← Back to Home
+        </button>
+      </CoolMode>
 
-      {/* Page content */}
-      <div className="flex flex-col items-center justify-start min-h-screen px-8 py-20">
+      {/* Tracing Beam Wrapper */}
+      <TracingBeam>
+        {/* Page content */}
+        <div className="flex flex-col items-center justify-start min-h-screen px-8 pt-20">
         {/* Page title */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent">
@@ -736,19 +682,20 @@ const Achievements = ({ onBack }) => {
         {/* Category Navigation */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                selectedCategory === category.id
-                  ? 'bg-red-600 text-white shadow-lg'
-                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
-              }`}
-            >
-              <category.icon className="w-5 h-5" />
-              <span>{category.name}</span>
-              <span className="bg-white/20 px-2 py-1 rounded-full text-xs">{category.count}</span>
-            </button>
+            <CoolMode key={category.id}>
+              <button
+                onClick={() => setSelectedCategory(category.id)}
+                className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+                  selectedCategory === category.id
+                    ? 'bg-red-600 text-white shadow-lg'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                }`}
+              >
+                <category.icon className="w-5 h-5" />
+                <span>{category.name}</span>
+                <span className="bg-white/20 px-2 py-1 rounded-full text-xs">{category.count}</span>
+              </button>
+            </CoolMode>
           ))}
         </div>
 
@@ -875,9 +822,10 @@ const Achievements = ({ onBack }) => {
           }
         }
       `}</style>
+    </TracingBeam>
 
-      {/* Footer */}
-      <Footer />
+    {/* Footer */}
+    <Footer />
     </div>
   );
 };

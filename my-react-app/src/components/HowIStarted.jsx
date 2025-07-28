@@ -1,7 +1,9 @@
 import React from 'react';
 import { Code, Award, Building2, Rocket, Users, Zap } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import { TracingBeam } from './ui/tracing-beam';
 import Footer from './Footer';
+import { CoolMode } from './magicui/cool-mode';
 
 const HowIStarted = ({ onBack, onNavigate }) => {
   const milestones = [
@@ -92,15 +94,19 @@ const HowIStarted = ({ onBack, onNavigate }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(34,197,94,0.1),transparent_50%)]"></div>
       
       {/* Back button */}
-      <button
-        onClick={onBack}
-        className="fixed top-8 left-8 z-30 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-      >
-        ← Back to Home
-      </button>
+      <CoolMode>
+        <button
+          onClick={onBack}
+          className="fixed top-8 left-8 z-30 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          ← Back to Home
+        </button>
+      </CoolMode>
 
-      {/* Page content */}
-      <div className="flex flex-col items-center justify-start min-h-screen px-8 py-20">
+      {/* Tracing Beam Wrapper */}
+      <TracingBeam>
+        {/* Page content */}
+        <div className="flex flex-col items-center justify-start min-h-screen px-8 pt-20">
         {/* Page title */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
@@ -128,18 +134,19 @@ const HowIStarted = ({ onBack, onNavigate }) => {
               
               {/* Content card */}
               <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
-                <div 
-                  className={`relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden ${
-                    milestone.isClickable 
-                      ? 'hover:bg-white/20 cursor-pointer border-2 border-transparent hover:border-teal-400' 
-                      : 'hover:bg-white/20'
-                  }`}
-                  onClick={() => {
-                    if (milestone.isClickable && milestone.projectType === 'j2ee') {
-                      onNavigate('otherProjects');
-                    }
-                  }}
-                >
+                <CoolMode>
+                  <div 
+                    className={`relative bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden ${
+                      milestone.isClickable 
+                        ? 'hover:bg-white/20 cursor-pointer border-2 border-transparent hover:border-teal-400' 
+                        : 'hover:bg-white/20'
+                    }`}
+                    onClick={() => {
+                      if (milestone.isClickable && milestone.projectType === 'j2ee') {
+                        onNavigate('otherProjects');
+                      }
+                    }}
+                  >
                   {/* Magic UI Border Beam */}
                   <BorderBeam
                     size={80}
@@ -192,7 +199,8 @@ const HowIStarted = ({ onBack, onNavigate }) => {
                       </span>
                     ))}
                   </div>
-                </div>
+                  </div>
+                </CoolMode>
               </div>
             </div>
           ))}
@@ -215,11 +223,12 @@ const HowIStarted = ({ onBack, onNavigate }) => {
             </button>
           </div>
         </div>
-      </div>
+        </div>
+      </TracingBeam>
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <div
             key={i}
             className="absolute w-2 h-2 bg-green-400 rounded-full opacity-30 animate-pulse"
@@ -227,7 +236,9 @@ const HowIStarted = ({ onBack, onNavigate }) => {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`
+              animationDuration: `${3 + Math.random() * 2}s`,
+              transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`,
+              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite alternate, pulse ${3 + Math.random() * 2}s ease-in-out infinite`
             }}
           ></div>
         ))}
@@ -245,10 +256,27 @@ const HowIStarted = ({ onBack, onNavigate }) => {
             transform: scale(1);
           }
         }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px);
+          }
+          25% {
+            transform: translateY(-20px) translateX(10px);
+          }
+          50% {
+            transform: translateY(-10px) translateX(-15px);
+          }
+          75% {
+            transform: translateY(-25px) translateX(5px);
+          }
+        }
       `}</style>
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer - Outside TracingBeam for full width */}
+      <div className="w-full">
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import React from 'react';
+import { TracingBeam } from './ui/tracing-beam';
 import Footer from './Footer';
+import { CoolMode } from './magicui/cool-mode';
 
 const OtherProjects = ({ onBack }) => {
   const projects = [
@@ -219,15 +221,18 @@ const OtherProjects = ({ onBack }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.1),transparent_50%)]"></div>
       
       {/* Back button */}
-      <button
-        onClick={onBack}
-        className="fixed top-8 left-8 z-30 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-      >
-        ← Back to Timeline
-      </button>
+      <CoolMode>
+        <button
+          onClick={onBack}
+          className="fixed top-8 left-8 z-30 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          ← Back to Timeline
+        </button>
+      </CoolMode>
 
-      {/* Page content */}
-      <div className="flex flex-col items-center justify-start min-h-screen px-8 py-20">
+      <TracingBeam className="px-6">
+        {/* Page content */}
+        <div className="flex flex-col items-center justify-start min-h-screen px-8 pt-20">
         {/* Page title */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -319,7 +324,7 @@ const OtherProjects = ({ onBack }) => {
 
       {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(25)].map((_, i) => (
+        {[...Array(50)].map((_, i) => (
           <div
             key={i}
             className="absolute w-2 h-2 bg-purple-400 rounded-full opacity-30 animate-pulse"
@@ -327,7 +332,9 @@ const OtherProjects = ({ onBack }) => {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`
+              animationDuration: `${3 + Math.random() * 2}s`,
+              transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`,
+              animation: `float ${8 + Math.random() * 4}s ease-in-out infinite alternate, pulse ${3 + Math.random() * 2}s ease-in-out infinite`
             }}
           ></div>
         ))}
@@ -344,7 +351,23 @@ const OtherProjects = ({ onBack }) => {
             transform: translateY(0);
           }
         }
+        
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px) translateX(0px);
+          }
+          25% {
+            transform: translateY(-20px) translateX(10px);
+          }
+          50% {
+            transform: translateY(-10px) translateX(-15px);
+          }
+          75% {
+            transform: translateY(-25px) translateX(5px);
+          }
+        }
       `}</style>
+      </TracingBeam>
 
       {/* Footer */}
       <Footer />

@@ -36,7 +36,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 border-t border-blue-500/20 overflow-hidden opacity-40 hover:opacity-100 transition-opacity duration-500 ease-in-out">
+    <footer className="relative w-full bg-gradient-to-r from-slate-900 via-blue-900 to-slate-800 border-t border-blue-500/20 overflow-hidden opacity-40 hover:opacity-100 transition-opacity duration-500 ease-in-out">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating particles */}
@@ -57,7 +57,7 @@ const Footer = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-cyan-500/5 animate-pulse"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-2">
+      <div className="relative z-10 w-full px-6 py-2">
         <div className="flex items-center justify-between flex-wrap gap-2">
           
           {/* Left side - Copyright */}

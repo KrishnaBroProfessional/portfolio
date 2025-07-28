@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, Activity, Code, BookOpen, Users, Target, TrendingUp, Calendar, Briefcase, Coffee } from 'lucide-react';
+import { Clock, Activity, Code, BookOpen, Target, TrendingUp, Calendar, Briefcase, Coffee, Building2, Award, Star } from 'lucide-react';
 import { BorderBeam } from './magicui/border-beam';
+import { TracingBeam } from './ui/tracing-beam';
+import { ScratchToReveal } from './magicui/scratch-to-reveal';
+import { ShineBorder } from './magicui/shine-border';
+import { SparklesText } from './magicui/sparkles-text';
 import Footer from './Footer';
+import { CoolMode } from './magicui/cool-mode';
 
 const Now = ({ onBack }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -17,84 +22,91 @@ const Now = ({ onBack }) => {
   const currentProjects = [
     {
       id: 1,
-      title: "PillBottle Scanner AI",
+      title: "PACT Predictor",
       client: "UnitedHealth Group",
-      status: "In Production",
-      progress: 95,
-      description: "AI-powered vision tool for scanning medication bottle labels and providing comprehensive medication information with 95% accuracy in label recognition.",
-      technologies: ["Python", "OpenCV", "TensorFlow", "FastAPI", "React"],
-      teamSize: 5,
-      deadline: "2024-12-31",
+      status: "Completed",
+      progress: 100,
+      description: "Advanced predictive analytics system for PACT (Patient Care Team) optimization, providing comprehensive insights for healthcare delivery optimization.",
+      technologies: ["Python", "Machine Learning", "TensorFlow", "FastAPI", "React"],
+      deadline: "2025-12-31",
       priority: "High",
       bgColor: "from-purple-500 to-pink-500",
       borderColors: { from: '#a855f7', to: '#ec4899' }
     },
     {
       id: 2,
-      title: "Telesales Agent Chatbot",
+      title: "PACT Analyzer",
       client: "UnitedHealth Group",
       status: "Active Development",
-      progress: 85,
-      description: "Advanced AI chatbot with RAG capabilities, multimodal support, multi SearchIndex, and comprehensive guardrails for telesales operations.",
-      technologies: ["Python", "LangChain", "RAG", "Vector DB", "FastAPI", "React"],
-      teamSize: 8,
-      deadline: "2024-11-30",
-      priority: "Critical",
+      progress: 90,
+      description: "Comprehensive analysis platform for PACT data, providing real-time insights and actionable recommendations for healthcare team performance.",
+      technologies: ["Python", "Data Analytics", "ML", "PostgreSQL", "React"],
+      deadline: "2025-11-30",
+      priority: "High",
       bgColor: "from-blue-500 to-purple-500",
       borderColors: { from: '#3b82f6', to: '#a855f7' }
     },
     {
       id: 3,
-      title: "Guardians Chatbot 3.0",
+      title: "VBF Impact Assessment",
       client: "UnitedHealth Group",
-      status: "Deployed",
-      progress: 100,
-      description: "Enterprise AI chatbot platform serving Engineering, Project Owners, Business, OPS, and Release teams with enhanced collaboration features.",
-      technologies: ["Python", "LLM", "Microservices", "Kubernetes", "React"],
-      teamSize: 12,
-      deadline: "2024-09-30",
-      priority: "High",
+      status: "In Development",
+      progress: 50,
+      description: "Value-Based Framework impact assessment tool for measuring and analyzing the effectiveness of healthcare initiatives and interventions.",
+      technologies: ["Python", "Analytics", "FastAPI", "React", "PostgreSQL"],
+      deadline: "2025-03-31",
+      priority: "Medium",
       bgColor: "from-green-500 to-blue-500",
       borderColors: { from: '#22c55e', to: '#3b82f6' }
     },
     {
       id: 4,
+      title: "Metrics Auditor",
+      client: "UnitedHealth Group",
+      status: "Planning",
+      progress: 10,
+      description: "Automated metrics auditing system for healthcare data quality assurance, compliance monitoring, and performance validation.",
+      technologies: ["Python", "Data Validation", "FastAPI", "React", "MongoDB"],
+      deadline: "2025-06-30",
+      priority: "Low",
+      bgColor: "from-orange-500 to-red-500",
+      borderColors: { from: '#f97316', to: '#ef4444' }
+    },
+    {
+      id: 5,
       title: "Security Vulnerability Remediation",
       client: "UnitedHealth Group",
       status: "Completed",
       progress: 100,
       description: "Systematically addressed and resolved 200+ security vulnerabilities across multiple healthcare applications, achieving 90% security posture improvement.",
       technologies: ["SonarQube", "OWASP", "Static Analysis", "Java", "Python"],
-      teamSize: 6,
-      deadline: "2024-08-31",
+      deadline: "2025-08-31",
       priority: "Critical",
       bgColor: "from-red-500 to-pink-500",
       borderColors: { from: '#ef4444', to: '#ec4899' }
     },
     {
-      id: 5,
+      id: 6,
       title: "NewRelic AMS Monitoring Setup",
       client: "UnitedHealth Group",
       status: "Operational",
       progress: 100,
       description: "Set up comprehensive monitoring dashboards for PROD, Stage, and QA environments using NewRelic AMS, reducing incident response time by 60%.",
       technologies: ["NewRelic", "Terraform", "AWS", "Kubernetes", "Grafana"],
-      teamSize: 4,
-      deadline: "2024-07-31",
+      deadline: "2025-07-31",
       priority: "High",
       bgColor: "from-orange-500 to-red-500",
       borderColors: { from: '#f97316', to: '#ef4444' }
     },
     {
-      id: 6,
+      id: 7,
       title: "E2E Checkout Tool Revision",
       client: "UnitedHealth Group",
       status: "Completed",
       progress: 100,
       description: "Completely revised and modernized the end-to-end checkout tool achieving 50% improvement in completion rate and 40% reduction in processing time.",
       technologies: ["React", "Node.js", "PostgreSQL", "Redis", "Docker"],
-      teamSize: 6,
-      deadline: "2024-08-20",
+      deadline: "2025-08-20",
       priority: "Medium",
       bgColor: "from-purple-500 to-pink-500",
       borderColors: { from: '#a855f7', to: '#ec4899' }
@@ -104,90 +116,33 @@ const Now = ({ onBack }) => {
   const currentLearning = [
     {
       id: 1,
-      topic: "Advanced Large Language Models",
-      platform: "Stanford CS224N",
-      progress: 60,
-      description: "Deep dive into transformer architectures and their applications in healthcare NLP",
-      estimatedCompletion: "2024-05-30",
-      icon: BookOpen,
+      topic: "Golang Gin Framework",
+      platform: "Self-paced Learning",
+      progress: 25,
+      description: "Learning modern Go web framework for building high-performance microservices and APIs",
+      estimatedCompletion: "2025-08-31",
+      icon: Code,
       color: "text-blue-400"
     },
     {
       id: 2,
-      topic: "Kubernetes Advanced Orchestration",
-      platform: "CNCF Certification",
-      progress: 80,
-      description: "Mastering advanced container orchestration for healthcare microservices",
-      estimatedCompletion: "2024-04-15",
-      icon: Code,
+      topic: "STEP Up Program",
+      platform: "UnitedHealth Group",
+      progress: 0,
+      description: "Strategic Technology Enhancement Program for advanced leadership and technical skills development",
+      estimatedCompletion: "2025-09-30",
+      icon: TrendingUp,
       color: "text-green-400"
     },
     {
       id: 3,
-      topic: "Healthcare Data Interoperability",
-      platform: "HL7 FHIR Certification",
-      progress: 45,
-      description: "Understanding modern healthcare data exchange standards and implementation",
-      estimatedCompletion: "2024-06-15",
+      topic: "Salesforce AI Associate Certification",
+      platform: "Salesforce Trailhead",
+      progress: 15,
+      description: "Comprehensive certification program focusing on AI implementation and best practices within Salesforce ecosystem",
+      estimatedCompletion: "2025-09-30",
       icon: Activity,
       color: "text-purple-400"
-    }
-  ];
-
-  const weeklySchedule = [
-    {
-      day: "Monday",
-      activities: [
-        { time: "9:00 AM", activity: "Team Standup", type: "meeting" },
-        { time: "10:00 AM", activity: "AI Platform Development", type: "coding" },
-        { time: "2:00 PM", activity: "Architecture Review", type: "meeting" },
-        { time: "4:00 PM", activity: "Code Review & Mentoring", type: "collaboration" }
-      ]
-    },
-    {
-      day: "Tuesday",
-      activities: [
-        { time: "9:00 AM", activity: "Sprint Planning", type: "meeting" },
-        { time: "11:00 AM", activity: "ML Model Training", type: "coding" },
-        { time: "3:00 PM", activity: "Learning: LLM Course", type: "learning" },
-        { time: "5:00 PM", activity: "Technical Documentation", type: "documentation" }
-      ]
-    },
-    {
-      day: "Wednesday",
-      activities: [
-        { time: "9:00 AM", activity: "Client Demo Preparation", type: "preparation" },
-        { time: "11:00 AM", activity: "Telehealth Testing", type: "testing" },
-        { time: "2:00 PM", activity: "Team 1:1 Meetings", type: "meeting" },
-        { time: "4:00 PM", activity: "Infrastructure Optimization", type: "coding" }
-      ]
-    }
-  ];
-
-  const currentGoals = [
-    {
-      id: 1,
-      title: "Complete AI Platform MVP",
-      deadline: "2024-06-30",
-      progress: 75,
-      description: "Deliver the first version of our next-generation AI healthcare platform",
-      priority: "High"
-    },
-    {
-      id: 2,
-      title: "Obtain Kubernetes Expert Certification",
-      deadline: "2024-04-15",
-      progress: 80,
-      description: "Achieve advanced Kubernetes certification for better container orchestration",
-      priority: "Medium"
-    },
-    {
-      id: 3,
-      title: "Publish Healthcare AI Research Paper",
-      deadline: "2024-09-30",
-      progress: 30,
-      description: "Co-author research paper on AI applications in clinical decision support",
-      priority: "Medium"
     }
   ];
 
@@ -219,34 +174,24 @@ const Now = ({ onBack }) => {
     }
   };
 
-  const getActivityIcon = (type) => {
-    switch (type) {
-      case 'meeting': return Users;
-      case 'coding': return Code;
-      case 'learning': return BookOpen;
-      case 'collaboration': return Users;
-      case 'testing': return Activity;
-      case 'documentation': return BookOpen;
-      case 'preparation': return Target;
-      default: return Activity;
-    }
-  };
-
   return (
     <div className="min-h-screen w-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800 relative overflow-auto">
       {/* Background decorative elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)]"></div>
       
       {/* Back button */}
-      <button
-        onClick={onBack}
-        className="fixed top-8 left-8 z-30 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-      >
-        ← Back to Home
-      </button>
+      <CoolMode>
+        <button
+          onClick={onBack}
+          className="fixed top-8 left-8 z-30 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          ← Back to Home
+        </button>
+      </CoolMode>
 
-      {/* Page content */}
-      <div className="flex flex-col items-center justify-start min-h-screen px-8 py-20">
+      <TracingBeam className="px-6">
+        {/* Page content */}
+        <div className="flex flex-col items-center justify-start min-h-screen px-8 pt-20">
         {/* Page title with live time */}
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
@@ -339,10 +284,6 @@ const Now = ({ onBack }) => {
                   {/* Project Details */}
                   <div className="space-y-2 text-xs text-gray-400">
                     <div className="flex items-center gap-2">
-                      <Users className="w-3 h-3" />
-                      <span>Team: {project.teamSize} members</span>
-                    </div>
-                    <div className="flex items-center gap-2">
                       <Calendar className="w-3 h-3" />
                       <span>Deadline: {new Date(project.deadline).toLocaleDateString()}</span>
                     </div>
@@ -407,112 +348,111 @@ const Now = ({ onBack }) => {
             </div>
           </section>
 
-          {/* Current Goals */}
+          {/* Current Account Role */}
           <section>
             <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-              <Target className="w-8 h-8 text-purple-400" />
-              Current Goals
+              <Building2 className="w-8 h-8 text-blue-400" />
+              Current Account Role
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {currentGoals.map((goal, index) => (
-                <div
-                  key={goal.id}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 relative"
-                  style={{
-                    animationDelay: `${index * 0.1}s`,
-                    animation: 'fadeInUp 0.6s ease-out forwards'
-                  }}
-                >
-                  <BorderBeam
-                    duration={14 + index * 2}
-                    delay={index * 0.25}
-                    colorFrom="#a855f7"
-                    colorTo="#ec4899"
-                    borderWidth={2}
-                  />
-
-                  <div className="mb-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(goal.priority)}`}>
-                        {goal.priority}
-                      </span>
-                      <TrendingUp className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2">{goal.title}</h3>
-                  </div>
-
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm text-gray-300 mb-2">
-                      <span>Progress</span>
-                      <span>{goal.progress}%</span>
-                    </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2">
-                      <div
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${goal.progress}%` }}
-                      ></div>
+            
+            <div className="w-full max-w-6xl mx-auto">
+              <div className="relative w-full rounded-xl">
+                <div className="relative w-full h-[400px] rounded-xl bg-gray-900 overflow-hidden">
+                  {/* Hidden content */}
+                  <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-800">
+                    <div className="text-center">
+                      <SparklesText
+                        className="text-6xl md:text-8xl font-black text-white"
+                        colors={{ first: "#fbbf24", second: "#f97316" }}
+                        sparklesCount={30}
+                      >
+                        Below B1
+                      </SparklesText>
                     </div>
                   </div>
-
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                    {goal.description}
-                  </p>
-
-                  <div className="text-xs text-gray-400">
-                    <span>Deadline: {new Date(goal.deadline).toLocaleDateString()}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Weekly Schedule Preview */}
-          <section>
-            <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-blue-400" />
-              This Week's Focus
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {weeklySchedule.map((day, dayIndex) => (
-                <div
-                  key={day.day}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 relative"
-                  style={{
-                    animationDelay: `${dayIndex * 0.1}s`,
-                    animation: 'fadeInUp 0.6s ease-out forwards'
-                  }}
-                >
-                  <BorderBeam
-                    duration={16 + dayIndex * 2}
-                    delay={dayIndex * 0.2}
-                    colorFrom="#3b82f6"
-                    colorTo="#06b6d4"
-                    borderWidth={2}
-                  />
-
-                  <h3 className="text-lg font-bold text-white mb-4">{day.day}</h3>
                   
-                  <div className="space-y-3">
-                    {day.activities.map((activity, actIndex) => {
-                      const IconComponent = getActivityIcon(activity.type);
-                      return (
-                        <div key={actIndex} className="flex items-center gap-3">
-                          <div className="flex-shrink-0 w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                            <IconComponent className="w-4 h-4 text-blue-400" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="text-sm text-gray-300">{activity.activity}</div>
-                            <div className="text-xs text-gray-500">{activity.time}</div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {/* Scratch overlay */}
+                  <ScratchToReveal
+                    width={1200}
+                    height={400}
+                    minScratchPercentage={95}
+                    className="absolute inset-0 z-10"
+                    gradientColors={["#4b5563", "#6b7280", "#9ca3af"]}
+                  >
+                    <div className="opacity-0"></div>
+                  </ScratchToReveal>
                 </div>
-              ))}
+                <ShineBorder
+                  className="absolute inset-0 pointer-events-none rounded-xl"
+                  shineColor={["#a855f7", "#3b82f6", "#06b6d4"]}
+                  borderWidth={3}
+                  duration={14}
+                />
+              </div>
             </div>
           </section>
         </div>
+
+        {/* Offers from Other Accounts */}
+        <section className="max-w-7xl w-full mt-24">
+          <h2 className="text-3xl font-bold text-white mb-12 flex items-center gap-3">
+            <Award className="w-8 h-8 text-green-400" />
+            Offers from Other Accounts
+          </h2>
+          
+          {/* Continuous Marquee */}
+          <div className="relative overflow-hidden bg-white/5 backdrop-blur-sm rounded-2xl p-8">
+            <BorderBeam
+              duration={20}
+              delay={0.5}
+              colorFrom="#22c55e"
+              colorTo="#10b981"
+              borderWidth={2}
+            />
+            
+            <div className="marquee-container">
+              <div className="marquee-content">
+                {/* First set */}
+                <div className="flex items-center space-x-16">
+                  <div className="w-24 h-12 bg-white rounded-lg flex items-center justify-center p-2">
+                    <img 
+                      src="https://northwestfatigueclinic.co.uk/wp-content/uploads/2014/09/aviva-logo.gif" 
+                      alt="Aviva Logo" 
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  
+                  <div className="w-24 h-12 bg-white rounded-lg flex items-center justify-center p-2">
+                    <img 
+                      src="https://wp.logos-download.com/wp-content/uploads/2022/11/Lloyds_Banking_Group_Logo.png" 
+                      alt="Lloyds Banking Group Logo" 
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                
+                {/* Duplicate set for seamless loop */}
+                <div className="flex items-center space-x-16">
+                  <div className="w-24 h-12 bg-white rounded-lg flex items-center justify-center p-2">
+                    <img 
+                      src="https://northwestfatigueclinic.co.uk/wp-content/uploads/2014/09/aviva-logo.gif" 
+                      alt="Aviva Logo" 
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  
+                  <div className="w-24 h-12 bg-white rounded-lg flex items-center justify-center p-2">
+                    <img 
+                      src="https://wp.logos-download.com/wp-content/uploads/2022/11/Lloyds_Banking_Group_Logo.png" 
+                      alt="Lloyds Banking Group Logo" 
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Bottom CTA */}
         <div className="mt-16 text-center">
@@ -530,7 +470,7 @@ const Now = ({ onBack }) => {
               Always Moving Forward
             </h3>
             <p className="text-gray-300 mb-6">
-              This page reflects my current focus and ongoing commitments. Every project, learning goal, and daily activity is aligned with my mission to advance healthcare through technology.
+               Every project milestone, learning achievement, and career opportunity reflects my commitment to driving innovation in technology .
             </p>
             <button
               onClick={onBack}
@@ -570,7 +510,32 @@ const Now = ({ onBack }) => {
             transform: translateY(0);
           }
         }
+        
+        .marquee-container {
+          width: 100%;
+          overflow: hidden;
+        }
+        
+        .marquee-content {
+          display: flex;
+          width: fit-content;
+          animation: marquee 20s linear infinite;
+        }
+        
+        .marquee-content > div {
+          margin-right: 8rem;
+        }
+        
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
       `}</style>
+      </TracingBeam>
 
       {/* Footer */}
       <Footer />

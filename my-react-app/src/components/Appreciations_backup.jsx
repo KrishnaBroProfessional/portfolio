@@ -3,7 +3,6 @@ import { Heart, MessageSquare, Users, Star, Quote, Calendar, User, Building2 } f
 import { BorderBeam } from './magicui/border-beam';
 import { TracingBeam } from './ui/tracing-beam';
 import Footer from './Footer';
-import { CoolMode } from './magicui/cool-mode';
 
 const Appreciations = ({ onBack }) => {
   const [selectedType, setSelectedType] = useState('all');
@@ -60,7 +59,7 @@ const Appreciations = ({ onBack }) => {
       date: '2024-05-10',
       message: "Good job on completing training.next Focus is to get into a billable role within the account or other accounts by next quarter.Profile to be updated 100% with relevant training and project skills for better visibility on project availability.",
       project: 'Training Completion & Career Development',
-      rating: 5,
+      rating: 4,
       avatar: '👨‍💼',
       bgColor: 'from-orange-500 to-red-500',
       borderColors: { from: '#f97316', to: '#ef4444' }
@@ -78,48 +77,72 @@ const Appreciations = ({ onBack }) => {
       avatar: '👨‍💼',
       bgColor: 'from-indigo-500 to-purple-500',
       borderColors: { from: '#6366f1', to: '#a855f7' }
-    },
+    }
+  ];
     {
-      id: 6,
+      id: 3,
       type: 'manager',
-      name: 'R Rajkishore Kishore',
-      role: 'Additional Manager',
+      name: 'JANNU LAVANYA',
+      role: 'Manager - Digital Acquisition POD',
       company: 'UnitedHealth Group',
-      date: '2025-01-15',
-      message: "Krishna Guptahas shown a commitment to continuous learning and professional development: Completed relevant online courses on platforms such as Udemy and WiLearn Regularly consulted technical documentation and resources to stay up-to-date with industry developments Actively sought out mentorship and guidance from experienced colleagues Participated in internal training and development programs Attended industry conferences and events to network with peers He has dedication, expertise, and collaborative spirit have significantly contributed to the success of various projects and initiatives. His commitment to continuous learning and professional development is commendable, and their priorities for the upcoming year align well with the organization's and UHG project goals. Best wishes for your 2025.",
-      project: 'Continuous Learning & Professional Development',
-      rating: 5,
-      avatar: '👨‍💼',
-      bgColor: 'from-emerald-500 to-teal-500',
-      borderColors: { from: '#10b981', to: '#14b8a6' }
-    },
-    {
-      id: 7,
-      type: 'manager',
-      name: 'Sujeet Kumar',
-      role: 'Additional Manager',
-      company: 'Wipro Limited',
-      date: '2024-11-20',
-      message: "I worked with Krishna as part of DMTS Hackathon team for 2 months and delivered a project for Wipro cloud Studio 2.0 which is currently live. Review as per the Skills showcased in Hackathon - Great knowledge in AI technology - Explored Amazon sagemaker and tweaked the model as per the project requirements. Used Promt Engineering to get useful results Came up with approach on how to feed test data Backend Application - Took ownership of the backend application Created several APIs as per the usecases Cloud - Deployed the Backend service in Amazon ECS service Applied load balancer, by collaborating with Amazon training SPOC Communication - Took ownership of creating use cases and collaborating with the team menbers. Gave good presentations to selection Jury also communicating with them for improvements Overall he played crucial role in whole SDLC process, right from Idea initiation to Project delivery showcasing Great Technical Knowledge and Ownership on several tasks.",
-      project: 'DMTS Hackathon & Wipro Cloud Studio 2.0',
-      rating: 5,
-      avatar: '👨‍💼',
-      bgColor: 'from-cyan-500 to-blue-500',
-      borderColors: { from: '#06b6d4', to: '#3b82f6' }
-    },
-    {
-      id: 8,
-      type: 'manager',
-      name: 'Dhanshree Choubey',
-      role: 'L1 Manager',
-      company: 'Wipro Limited',
-      date: '2024-12-10',
-      message: "Despite being overburdened, you delivered 100% of tasks without any spillage, showcasing your dedication and reliability.Your support for various teams and collaboration in initiatives like Wipro WICares shows your teamwork and willingness to go above and beyond, even during weekends.Your involvement in major projects on both the client's and Wipro's side, such as the PillBottle Scanner and Agentic AI Okrishtra, highlights your technical expertise and ability to deliver impactful solutions. While your ability to handle a heavy workload is commendable, finding ways to manage and balance your tasks more effectively could help reduce stress and improve overall productivity. Complete the training and certification on Cloud-Microsoft Azure-L1 which is asigned to you. Overall your performance has been outstanding, with significant contributions to both client and internal projects. By addressing the areas for improvement and continuing your professional development, you will further enhance your career growth and impact within the organization.",
-      project: 'PillBottle Scanner & Agentic AI Okrishtra',
+      date: '2024-06-20',
+      message: "Krishna is a Very Strong resource and Talented resource of Digital Acquistion POD. Krishna is Been Taking the command and full responsibility of the deliverables and ensuring quality. Krsihna have completed 19courses in Udemy. He gained30+ Skills. Krishna achieved 7certifications and accredations: • Salesforce Associate Engineer • AWS Certified Cloud Practitioner • Azure Odessys • Azure NLP certified • Azure Intelligent Document certified • IBM Cloud Advocate Essentials • Earned several Badges in Google Cloud Skill boost Understanding & clarifying business requirements and making the customer is satisfied with the high quality work.",
+      project: 'Digital Acquisition & Multi-Cloud Certifications',
       rating: 5,
       avatar: '👩‍💼',
-      bgColor: 'from-pink-500 to-rose-500',
-      borderColors: { from: '#ec4899', to: '#f43f5e' }
+      bgColor: 'from-purple-500 to-pink-500',
+      borderColors: { from: '#a855f7', to: '#ec4899' }
+    },
+    {
+      id: 4,
+      type: 'manager',
+      name: 'Valerian Joseph Cuthinha',
+      role: 'L1 Manager',
+      company: 'UnitedHealth Group',
+      date: '2024-05-10',
+      message: "Good job on completing training.next Focus is to get into a billable role within the account or other accounts by next quarter.Profile to be updated 100% with relevant training and project skills for better visibility on project availability.",
+      project: 'Training Completion & Career Development',
+      rating: 4,
+      avatar: '👨‍💼',
+      bgColor: 'from-orange-500 to-red-500',
+      borderColors: { from: '#f97316', to: '#ef4444' }
+    },
+    {
+      id: 5,
+      type: 'manager',
+      name: 'R Rajkishore Kishore',
+      role: 'Manager',
+      company: 'UnitedHealth Group',
+      date: '2022-04-15',
+      message: "Krishna Gupta is one excellent performer in Wase and TeamRBW candidates UHG project specific training program. • He has completed phase-1 training and later undergone the training for Phase 2 training. • He lead the team for capstone project and complete with industry standard. • He performed well and completed his training on JBE and microservices and he is going to part UHG project by april or max May 1 week. • In upcoming quarter focus to completed the certificates based on the trained skillset and he already completed couple certificates too. • He should focus get in to the project and leverage his technical skill to deliver his deliverables on time once he get in to the project. Overall is good performer and scale up his skill set what is required to get to the project. Keep your work and stay focus on outcome......",
+      project: 'UHG Training Program & Team Leadership',
+      rating: 5,
+      avatar: '👨‍💼',
+      bgColor: 'from-indigo-500 to-purple-500',
+      borderColors: { from: '#6366f1', to: '#a855f7' }
+    } } from 'react';
+import { Heart, MessageSquare, Users, Star, Quote, Calendar, User, Building2 } from 'lucide-react';
+import { BorderBeam } from './magicui/border-beam';
+import { TracingBeam } from './ui/tracing-beam';
+import Footer from './Footer';
+
+const Appreciations = ({ onBack }) => {
+  const [selectedType, setSelectedType] = useState('all');
+
+  const appreciations = [
+    {
+      id: 1,
+      type: 'manager',
+      name: 'JANNU LAVANYA',
+      role: 'Manager',
+      company: 'UnitedHealth Group',
+      date: '2024-07-27',
+      message: "Krishna is a Junior rookie working completed a POC on aiops by developing a chatbot that uses artificial intelligence and natural language processing to enhance customer service and satisfaction. Krishna Worked on • Automation tool for security vulnerability report generation that reduces the manual work effort from one day to just two minutes • He Strengthened the monitoring for our team by developing a vbf checkout tool that tracks the performance and availability of our systems and applications. • He have great skills in using monitoring tools such as dynatrace, splunk, and openlens. Krishna done very well in delivering the features of • Handled multiple task at a Time. Krishna Received customer appreciation as a part of successful release.",
+      project: 'AIOps Chatbot & Security Automation',
+      rating: 5,
+      avatar: '�‍�',
+      bgColor: 'from-green-500 to-blue-500',
+      borderColors: { from: '#22c55e', to: '#3b82f6' }
     }
   ];
 
@@ -170,14 +193,12 @@ const Appreciations = ({ onBack }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(234,179,8,0.1),transparent_50%)]"></div>
       
       {/* Back button */}
-      <CoolMode>
-        <button
-          onClick={onBack}
-          className="fixed top-8 left-8 z-30 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-        >
-          ← Back to Home
-        </button>
-      </CoolMode>
+      <button
+        onClick={onBack}
+        className="fixed top-8 left-8 z-30 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+      >
+        ← Back to Home
+      </button>
 
       <TracingBeam className="px-6">
         {/* Page content */}
@@ -222,30 +243,29 @@ const Appreciations = ({ onBack }) => {
         {/* Type Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {types.map((type) => (
-            <CoolMode key={type.id}>
-              <button
-                onClick={() => setSelectedType(type.id)}
-                className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                  selectedType === type.id
-                    ? 'bg-yellow-600 text-white shadow-lg'
-                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
-                }`}
-              >
-                <type.icon className="w-5 h-5" />
-                <span>{type.name}</span>
-                <span className="bg-white/20 px-2 py-1 rounded-full text-xs">{type.count}</span>
-              </button>
-            </CoolMode>
+            <button
+              key={type.id}
+              onClick={() => setSelectedType(type.id)}
+              className={`flex items-center gap-3 px-6 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+                selectedType === type.id
+                  ? 'bg-yellow-600 text-white shadow-lg'
+                  : 'bg-white/10 text-gray-300 hover:bg-white/20'
+              }`}
+            >
+              <type.icon className="w-5 h-5" />
+              <span>{type.name}</span>
+              <span className="bg-white/20 px-2 py-1 rounded-full text-xs">{type.count}</span>
+            </button>
           ))}
         </div>
 
         {/* Appreciations Grid */}
         <div className="max-w-7xl w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredAppreciations.map((appreciation, index) => (
               <div
                 key={appreciation.id}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform transition-all duration-300 hover:scale-105 hover:bg-white/15 relative group flex flex-col h-full"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform transition-all duration-300 hover:scale-105 hover:bg-white/15 relative group"
                 style={{
                   animationDelay: `${index * 0.1}s`,
                   animation: 'fadeInUp 0.6s ease-out forwards'
@@ -264,7 +284,7 @@ const Appreciations = ({ onBack }) => {
                 <Quote className="w-8 h-8 text-yellow-400 mb-4" />
 
                 {/* Message */}
-                <p className="text-gray-300 text-sm mb-6 leading-relaxed italic flex-grow">
+                <p className="text-gray-300 text-sm mb-6 leading-relaxed italic">
                   "{appreciation.message}"
                 </p>
 
@@ -273,8 +293,8 @@ const Appreciations = ({ onBack }) => {
                   {renderStars(appreciation.rating)}
                 </div>
 
-                {/* Author Info - Always at bottom */}
-                <div className="border-t border-white/20 pt-4 mt-auto">
+                {/* Author Info */}
+                <div className="border-t border-white/20 pt-4">
                   <div className="flex items-center gap-3 mb-2">
                     <div 
                       className="w-12 h-12 rounded-full flex items-center justify-center text-2xl"
@@ -330,14 +350,12 @@ const Appreciations = ({ onBack }) => {
             <p className="text-gray-300 mb-6">
               These testimonials represent more than just professional feedback—they reflect the meaningful relationships built through collaborative success and shared commitment to healthcare innovation.
             </p>
-            <CoolMode>
-              <button
-                onClick={onBack}
-                className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Continue Exploring
-              </button>
-            </CoolMode>
+            <button
+              onClick={onBack}
+              className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+            >
+              Continue Exploring
+            </button>
           </div>
         </div>
       </div>
@@ -359,7 +377,7 @@ const Appreciations = ({ onBack }) => {
       </div>
 
       {/* Custom CSS Animations */}
-      <style>{`
+      <style jsx>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
