@@ -22,7 +22,7 @@ const Footer = () => {
     {
       name: 'Email',
       icon: Mail,
-      url: 'mailto:krishna@example.com',
+      url: 'mailto:krishna2gupta2000@gmail.com',
       color: 'hover:text-red-500',
       bgHover: 'hover:bg-red-500/10'
     },
