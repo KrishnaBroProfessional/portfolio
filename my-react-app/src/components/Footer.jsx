@@ -8,7 +8,7 @@ const Footer = () => {
     {
       name: 'LinkedIn',
       icon: Linkedin,
-      url: 'https://linkedin.com/in/krishna-gupta',
+      url: 'https://linkedin.com/in/krishna-g-2000786',
       color: 'hover:text-blue-500',
       bgHover: 'hover:bg-blue-500/10'
     },
